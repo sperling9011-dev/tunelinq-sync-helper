@@ -3,109 +3,400 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Datenschutzerklärung – tuneLINQ Sync-Helper</title>
+  <meta name="description" content="tuneLINQ Sync-Helper für Windows – Synchronisiert Musik, Playlists und Ordner mit der tuneLINQ Android-App im lokalen Netzwerk." />
+  <title>tuneLINQ Sync-Helper – Support & Informationen</title>
   <style>
-    :root { color-scheme: light dark; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height: 1.55; margin: 0; }
-    header, main, footer { max-width: 900px; margin: 0 auto; padding: 20px; }
-    header { padding-top: 28px; }
-    h1 { margin: 0 0 6px 0; font-size: 28px; }
-    .meta { opacity: .75; margin: 0 0 18px 0; }
-    h2 { margin-top: 26px; font-size: 18px; }
-    ul { margin-top: 8px; }
-    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
-    .card { border: 1px solid rgba(127,127,127,.35); border-radius: 12px; padding: 14px 16px; }
-    footer { opacity: .75; font-size: 13px; padding-bottom: 32px; }
-    a { color: inherit; }
+    :root{
+      --bg:#0b0f14;
+      --card:#0f1621;
+      --text:#e6edf3;
+      --muted:#9fb0c0;
+      --line:#223044;
+      --accent:#4aa3ff;
+      --accent2:#63d6c7;
+      --warn:#ffcc66;
+      --ok:#7ee787;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --max: 980px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f6f8fa;
+        --card:#ffffff;
+        --text:#111827;
+        --muted:#4b5563;
+        --line:#e5e7eb;
+        --accent:#0b6bff;
+        --accent2:#0ea5a5;
+        --shadow: 0 10px 30px rgba(0,0,0,.08);
+      }
+    }
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(74,163,255,.18), transparent 60%),
+        radial-gradient(900px 500px at 90% 0%, rgba(99,214,199,.14), transparent 55%),
+        var(--bg);
+    }
+    a{ color:var(--accent); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+    header{
+      padding: 32px 16px 12px;
+    }
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 260px;
+    }
+    .logo{
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background:
+        linear-gradient(135deg, rgba(74,163,255,.95), rgba(99,214,199,.95));
+      box-shadow: var(--shadow);
+      flex: 0 0 auto;
+    }
+    .brand h1{
+      margin:0;
+      font-size: 20px;
+      letter-spacing: .2px;
+    }
+    .brand p{
+      margin:2px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    nav{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.02);
+    }
+    @media (prefers-color-scheme: light){
+      .pill{ background: rgba(0,0,0,.02); }
+    }
+    main{
+      padding: 8px 16px 36px;
+    }
+    .hero{
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      margin-bottom: 16px;
+    }
+    .hero h2{
+      margin: 0 0 8px;
+      font-size: 26px;
+      line-height: 1.2;
+    }
+    .hero p{
+      margin: 0 0 16px;
+      color: var(--muted);
+      max-width: 70ch;
+    }
+    .cta{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      color: var(--text);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    @media (prefers-color-scheme: light){
+      .btn{ background: rgba(0,0,0,.02); }
+    }
+    .btn.primary{
+      border: 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #0b0f14;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .card{
+      grid-column: span 12;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    @media (min-width: 860px){
+      .card.half{ grid-column: span 6; }
+      .card.third{ grid-column: span 4; }
+    }
+    .card h3{
+      margin:0 0 10px;
+      font-size: 18px;
+    }
+    .card p, .card li{ color: var(--muted); }
+    ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: 0.95em;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--line);
+      padding: 2px 6px;
+      border-radius: 8px;
+      color: var(--text);
+    }
+    @media (prefers-color-scheme: light){
+      code{ background: rgba(0,0,0,.04); }
+    }
+    .notice{
+      border-left: 4px solid var(--warn);
+      background: rgba(255,204,102,.08);
+      padding: 10px 12px;
+      border-radius: 12px;
+      margin-top: 10px;
+      color: var(--text);
+    }
+    .kvs{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (min-width: 860px){
+      .kvs{ grid-template-columns: 1fr 1fr; }
+    }
+    .kv{
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .kv b{ display:block; margin-bottom: 4px; }
+    footer{
+      padding: 18px 16px 30px;
+      color: var(--muted);
+    }
+    .foot{
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .small{
+      font-size: 13px;
+      color: var(--muted);
+    }
   </style>
 </head>
-
 <body>
   <header>
-    <h1>Datenschutzerklärung – tuneLINQ Sync-Helper</h1>
-    <p class="meta">Stand: 19.12.2025</p>
-    <div class="card">
-      <strong>Kurzfassung</strong>
-      <ul>
-        <li>Keine Werbung, kein Tracking, keine Telemetrie.</li>
-        <li>Die App verarbeitet Daten lokal, soweit für die Synchronisation erforderlich.</li>
-        <li>Netzwerkkommunikation (falls genutzt) erfolgt zur Kopplung/Synchronisation mit von Ihnen ausgewählten Geräten.</li>
-      </ul>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <h1>tuneLINQ Sync-Helper (Windows)</h1>
+            <p>Support, Kurzanleitung und rechtliche Hinweise</p>
+          </div>
+        </div>
+
+        <nav aria-label="Navigation">
+          <a class="pill" href="#hilfe">Hilfe</a>
+          <a class="pill" href="#faq">FAQ</a>
+          <a class="pill" href="datenschutz.html">Datenschutzerklärung</a>
+          <a class="pill" href="#kontakt">Kontakt</a>
+        </nav>
+      </div>
     </div>
   </header>
 
   <main>
-    <h2>1. Verantwortlicher</h2>
-    <p>
-      Daniel Spatkowski<br />
-      Kontakt (Support): <a href="mailto:daniel.spatkowski@outlook.de">daniel.spatkowski@outlook.de</a>
-    </p>
+    <div class="wrap">
+      <section class="hero" aria-label="Einführung">
+        <h2>Synchronisation von Musik, Ordnern und Playlists mit Android – über dein lokales Netzwerk</h2>
+        <p>
+          Der <b>tuneLINQ Sync-Helper</b> ist eine Windows-Anwendung, die deine Musiksammlung aus ausgewählten Ordnern
+          für die tuneLINQ Android-App bereitstellt und Synchronisation/Übertragung im LAN erleichtert.
+        </p>
 
-    <h2>2. Welche Daten werden verarbeitet?</h2>
-    <p>
-      Der tuneLINQ Sync-Helper verarbeitet lokale Daten, die zur Ausführung der Synchronisationsfunktionen erforderlich sind.
-      Dazu können insbesondere gehören:
-    </p>
-    <ul>
-      <li>Dateiinhalte, Dateinamen, Dateipfade und Metadaten (z. B. Titel/Interpret/Album), soweit von Ihnen ausgewählt bzw. durch die Synchronisation benötigt.</li>
-      <li>App-Einstellungen (z. B. gewählte Optionen/Präferenzen).</li>
-      <li>Technische Verbindungsdaten im lokalen Netzwerk (z. B. lokale IP-Adressen/Ports), sofern Netzwerk-Synchronisation verwendet wird.</li>
-    </ul>
-    <p>
-      Es werden keine besonderen Kategorien personenbezogener Daten im Sinne der DSGVO (z. B. Gesundheitsdaten) zielgerichtet erhoben.
-    </p>
+        <div class="cta">
+          <a class="btn primary" href="#hilfe">Jetzt starten</a>
+          <a class="btn" href="datenschutz.html">Datenschutzerklärung</a>
+        </div>
 
-    <h2>3. Zweck der Verarbeitung</h2>
-    <p>
-      Die Verarbeitung erfolgt ausschließlich, um die Kernfunktion der Anwendung bereitzustellen:
-      das Synchronisieren von Musik/Playlists und zugehörigen Informationen zwischen von Ihnen ausgewählten Geräten bzw. Speicherorten.
-    </p>
+        <div class="notice" role="note">
+          Hinweis: Für die Synchronisation wird die tuneLINQ Android-App benötigt. Der Helper selbst läuft auf Windows.
+        </div>
+      </section>
 
-    <h2>4. Übermittlung an Dritte / an den Anbieter</h2>
-    <p>
-      Der tuneLINQ Sync-Helper übermittelt keine personenbezogenen Daten an den Anbieter (Daniel Spatkowski) und keine Daten an Dritte.
-      Es findet keine Telemetrie, kein Tracking und keine werbliche Profilbildung statt.
-    </p>
+      <section id="hilfe" class="grid" aria-label="Hilfe und Kurzanleitung">
+        <div class="card half">
+          <h3>Kurzanleitung (3 Schritte)</h3>
+          <ol>
+            <li>Starte den <b>tuneLINQ Sync-Helper</b> unter Windows.</li>
+            <li>Wähle deine Musikordner aus und starte den Scan (falls angeboten).</li>
+            <li>Öffne tuneLINQ auf Android, starte „Synchronisieren“ und gib den Pairing-Code ein.</li>
+          </ol>
+          <p class="small">
+            Tipp: Stelle sicher, dass PC und Smartphone im selben WLAN/LAN sind.
+          </p>
+        </div>
 
-    <h2>5. Netzwerkkommunikation</h2>
-    <p>
-      Sofern Sie die Synchronisation über ein Netzwerk nutzen, kommuniziert die App ausschließlich zur Durchführung der Synchronisation
-      mit den von Ihnen ausgewählten Geräten/Endpunkten (z. B. im lokalen Netzwerk).
-      Dabei können technische Verbindungsdaten (z. B. lokale IP-Adresse, Port, Zeitpunkt der Verbindung) verarbeitet werden,
-      soweit dies zur Herstellung und Aufrechterhaltung der Verbindung erforderlich ist.
-    </p>
+        <div class="card half">
+          <h3>Netzwerk & Firewall</h3>
+          <ul>
+            <li>PC und Smartphone müssen im selben lokalen Netzwerk sein.</li>
+            <li>Wenn du Probleme hast, erlaube die App in der Windows-Firewall (eingehend/privates Netzwerk).</li>
+            <li>Wenn ein Port angezeigt wird, muss dieser im Netzwerk erreichbar sein (z. B. <code>8787</code>).</li>
+          </ul>
+          <p class="small">
+            Falls du einen VPN-Client nutzt, teste kurz ohne VPN.
+          </p>
+        </div>
 
-    <h2>6. Speicherung und Speicherdauer</h2>
-    <p>
-      Daten werden grundsätzlich lokal auf Ihrem Gerät gespeichert, soweit dies für die Funktion der App erforderlich ist
-      (z. B. Einstellungen oder temporäre Synchronisationsinformationen). Eine serverseitige Speicherung durch den Anbieter findet nicht statt.
-    </p>
+        <div class="card third">
+          <h3>Was wird übertragen?</h3>
+          <ul>
+            <li>Musikdateien aus ausgewählten Ordnern</li>
+            <li>Playlists (je nach Format/Quelle)</li>
+            <li>Metadaten (Titel/Album/Interpret)</li>
+          </ul>
+        </div>
 
-    <h2>7. Berechtigungen</h2>
-    <p>
-      Die App kann Berechtigungen/Funktionen anfordern, die für die angebotenen Features erforderlich sind, z. B. Zugriff auf die Musikbibliothek
-      (zur Verarbeitung von Musikdateien/Metadaten) oder Netzwerkzugriff (für Synchronisation).
-      Sie können Berechtigungen in den Windows-Einstellungen verwalten.
-    </p>
+        <div class="card third">
+          <h3>Was wird nicht gemacht?</h3>
+          <ul>
+            <li>Keine Cloud-Synchronisation</li>
+            <li>Keine Anmeldung erforderlich</li>
+            <li>Keine Datenweitergabe an Dritte (siehe Datenschutz)</li>
+          </ul>
+        </div>
 
-    <h2>8. Ihre Rechte</h2>
-    <p>
-      Soweit anwendbar, haben Sie nach DSGVO das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung sowie Datenübertragbarkeit.
-      Da keine Daten an den Anbieter übermittelt werden, beziehen sich diese Rechte in der Praxis auf lokal auf Ihrem Gerät gespeicherte Daten.
-      Bei Fragen können Sie sich über die oben genannte Support-E-Mail melden.
-    </p>
+        <div class="card third">
+          <h3>Datenschutz</h3>
+          <p>
+            Die Datenschutzerklärung findest du hier:
+            <a href="datenschutz.html"><b>datenschutz.html</b></a>
+          </p>
+          <p class="small">
+            Wichtig für Store-Listings: Die Seite ist öffentlich und ohne Login erreichbar.
+          </p>
+        </div>
+      </section>
 
-    <h2>9. Änderungen dieser Datenschutzerklärung</h2>
-    <p>
-      Diese Datenschutzerklärung kann aktualisiert werden, wenn sich Funktionen oder rechtliche Anforderungen ändern.
-      Das Datum oben wird entsprechend angepasst.
-    </p>
+      <section id="faq" class="grid" aria-label="FAQ">
+        <div class="card">
+          <h3>FAQ</h3>
+
+          <div class="kvs">
+            <div class="kv">
+              <b>Der Helper findet mein Smartphone nicht – was tun?</b>
+              <div class="small">
+                Prüfe, ob beide Geräte im selben WLAN/LAN sind, deaktiviere VPN, und erlaube den Helper in der Windows-Firewall.
+              </div>
+            </div>
+
+            <div class="kv">
+              <b>Welche Ports werden verwendet?</b>
+              <div class="small">
+                Wenn der Helper einen Port anzeigt (z. B. <code>8787</code>), muss dieser im privaten Netzwerk erreichbar sein.
+              </div>
+            </div>
+
+            <div class="kv">
+              <b>Warum dauert der Scan so lange?</b>
+              <div class="small">
+                Große Bibliotheken oder langsame Laufwerke können den Scan verlängern. Teste zunächst mit einem kleineren Ordner.
+              </div>
+            </div>
+
+            <div class="kv">
+              <b>Unterstützt ihr externe Laufwerke/NAS?</b>
+              <div class="small">
+                In der Regel ja, sofern Windows den Pfad lesen kann und die Dateien lokal erreichbar sind. Bei NAS: Netzwerkfreigaben prüfen.
+              </div>
+            </div>
+          </div>
+
+          <p class="small" style="margin-top:12px;">
+            Diese FAQ ist bewusst kurz gehalten. Wenn du mir sagst, welche Funktionen/Fehler du häufig siehst, ergänze ich dir die passenden Punkte.
+          </p>
+        </div>
+      </section>
+
+      <section id="kontakt" class="grid" aria-label="Kontakt">
+        <div class="card">
+          <h3>Kontakt</h3>
+          <p>
+            Für Support-Anfragen kannst du entweder eine E-Mail-Adresse angeben (empfohlen für Store-Listings)
+            oder ein GitHub-Issue verwenden.
+          </p>
+          <ul>
+            <li><b>E-Mail:</b> <span class="small">[hier deine Support-Adresse eintragen]</span></li>
+            <li><b>GitHub Issues:</b> <span class="small">[hier deinen Repo-Link eintragen]</span></li>
+          </ul>
+          <p class="small">
+            Hinweis: Ersetze die Platzhalter oben durch deine echten Kontaktwege, bevor du die Seite veröffentlichst.
+          </p>
+        </div>
+      </section>
+    </div>
   </main>
 
   <footer>
-    <p>
-      
-    </p>
+    <div class="foot">
+      <div class="small">
+        © <span id="y"></span> tuneLINQ – Sync-Helper
+      </div>
+      <div class="small">
+        <a href="datenschutz.html">Datenschutzerklärung</a>
+      </div>
+    </div>
   </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
