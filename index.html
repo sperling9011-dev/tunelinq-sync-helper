@@ -5,52 +5,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="tuneLINQ Sync-Helper für Windows – Synchronisiert Musik, Playlists und Ordner mit der tuneLINQ Android-App im lokalen Netzwerk." />
   <title>tuneLINQ Sync-Helper – Support & Informationen</title>
+
   <style>
     :root{
-      --bg:#0b0f14;
-      --card:#0f1621;
-      --text:#e6edf3;
-      --muted:#9fb0c0;
-      --line:#223044;
-      --accent:#4aa3ff;
-      --accent2:#63d6c7;
-      --warn:#ffcc66;
-      --ok:#7ee787;
+      /* Logo-nahe Akzentfarben (aus dem Icon abgeleitet) */
+      --accent:  #c0c020; /* gelb-grün */
+      --accent2: #70b040; /* grün */
+
+      /* Dark */
+      --bg:    #08100a;
+      --card:  #0e1811;
+      --text:  #eaf4ea;
+      --muted: #a8bca8;
+      --line:  #203525;
+
+      --warn:  #ffcc66;
+      --ok:    #7ee787;
+
       --shadow: 0 10px 30px rgba(0,0,0,.35);
       --radius: 16px;
       --max: 980px;
+
+      --logoSize: 44px;
+      --logoRadius: 12px;
     }
+
     @media (prefers-color-scheme: light){
       :root{
-        --bg:#f6f8fa;
-        --card:#ffffff;
-        --text:#111827;
-        --muted:#4b5563;
-        --line:#e5e7eb;
-        --accent:#0b6bff;
-        --accent2:#0ea5a5;
+        /* Light (Akzente bleiben logo-nah, UI-Farben heller) */
+        --bg:    #f6fbf2;
+        --card:  #ffffff;
+        --text:  #0f172a;
+        --muted: #4b5563;
+        --line:  #dbe7d6;
+
+        /* Für Links im Light-Mode etwas dunkler für Kontrast */
+        --accent:  #2f7a22;
+        --accent2: #7cab2f;
+
         --shadow: 0 10px 30px rgba(0,0,0,.08);
       }
     }
+
     *{ box-sizing: border-box; }
+
     body{
       margin:0;
       font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
       background:
-        radial-gradient(1200px 600px at 20% -10%, rgba(74,163,255,.18), transparent 60%),
-        radial-gradient(900px 500px at 90% 0%, rgba(99,214,199,.14), transparent 55%),
+        radial-gradient(1200px 600px at 18% -10%, rgba(112,176,64,.22), transparent 60%),
+        radial-gradient(900px 500px at 92% 0%, rgba(192,192,32,.18), transparent 55%),
+        radial-gradient(700px 420px at 50% 120%, rgba(112,176,64,.10), transparent 55%),
         var(--bg);
     }
+
     a{ color:var(--accent); text-decoration: none; }
     a:hover{ text-decoration: underline; }
-    header{
-      padding: 32px 16px 12px;
-    }
+
+    header{ padding: 32px 16px 12px; }
+
     .wrap{
       max-width: var(--max);
       margin: 0 auto;
     }
+
     .topbar{
       display:flex;
       align-items:center;
@@ -58,21 +77,38 @@
       gap: 12px;
       flex-wrap: wrap;
     }
+
     .brand{
       display:flex;
       align-items:center;
       gap: 12px;
       min-width: 260px;
     }
+
+    /* Logo-Einbindung */
     .logo{
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background:
-        linear-gradient(135deg, rgba(74,163,255,.95), rgba(99,214,199,.95));
+      width: var(--logoSize);
+      height: var(--logoSize);
+      border-radius: var(--logoRadius);
+      overflow: hidden;
       box-shadow: var(--shadow);
       flex: 0 0 auto;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
     }
+    @media (prefers-color-scheme: light){
+      .logo{
+        background: rgba(0,0,0,.03);
+        border-color: rgba(0,0,0,.06);
+      }
+    }
+    .logo img{
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
     .brand h1{
       margin:0;
       font-size: 20px;
@@ -83,6 +119,7 @@
       color: var(--muted);
       font-size: 13px;
     }
+
     nav{
       display:flex;
       gap: 10px;
@@ -100,12 +137,15 @@
     @media (prefers-color-scheme: light){
       .pill{ background: rgba(0,0,0,.02); }
     }
-    main{
-      padding: 8px 16px 36px;
-    }
+
+    main{ padding: 8px 16px 36px; }
+
     .hero{
       border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0)),
+        radial-gradient(900px 260px at 15% 0%, rgba(112,176,64,.10), transparent 60%),
+        radial-gradient(700px 240px at 95% 0%, rgba(192,192,32,.10), transparent 60%);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 22px;
@@ -121,6 +161,7 @@
       color: var(--muted);
       max-width: 70ch;
     }
+
     .cta{
       display:flex;
       gap: 10px;
@@ -144,9 +185,17 @@
     }
     .btn.primary{
       border: 0;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: #0b0f14;
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      color: #07110a;
+      box-shadow: 0 10px 24px rgba(112,176,64,.18);
     }
+    @media (prefers-color-scheme: light){
+      .btn.primary{
+        color: #061008;
+        box-shadow: 0 10px 22px rgba(47,122,34,.14);
+      }
+    }
+
     .grid{
       display:grid;
       grid-template-columns: repeat(12, 1fr);
@@ -165,15 +214,18 @@
       .card.half{ grid-column: span 6; }
       .card.third{ grid-column: span 4; }
     }
+
     .card h3{
       margin:0 0 10px;
       font-size: 18px;
     }
     .card p, .card li{ color: var(--muted); }
+
     ul{
       margin: 10px 0 0;
       padding-left: 18px;
     }
+
     code{
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
       font-size: 0.95em;
@@ -184,8 +236,12 @@
       color: var(--text);
     }
     @media (prefers-color-scheme: light){
-      code{ background: rgba(0,0,0,.04); }
+      code{
+        background: rgba(0,0,0,.04);
+        color: #111827;
+      }
     }
+
     .notice{
       border-left: 4px solid var(--warn);
       background: rgba(255,204,102,.08);
@@ -194,6 +250,7 @@
       margin-top: 10px;
       color: var(--text);
     }
+
     .kvs{
       display:grid;
       grid-template-columns: 1fr;
@@ -209,6 +266,7 @@
       padding: 12px;
     }
     .kv b{ display:block; margin-bottom: 4px; }
+
     footer{
       padding: 18px 16px 30px;
       color: var(--muted);
@@ -229,12 +287,15 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <div class="wrap">
       <div class="topbar">
         <div class="brand">
-          <div class="logo" aria-hidden="true"></div>
+          <div class="logo" aria-hidden="true">
+            <img src="Square44x44Logo.altform-unplated_targetsize-256.png" alt="tuneLINQ Helper Logo" />
+          </div>
           <div>
             <h1>tuneLINQ Sync-Helper (Windows)</h1>
             <p>Support, Kurzanleitung und rechtliche Hinweise</p>
@@ -359,9 +420,7 @@
             </div>
           </div>
 
-          <p class="small" style="margin-top:12px;">
-            
-          </p>
+          <p class="small" style="margin-top:12px;"></p>
         </div>
       </section>
 
@@ -372,9 +431,7 @@
             <li><b>E-Mail:</b> <span class="small">daniel.spatkowski@outlook.de</span></li>
             <li><b>GitHub Issues:</b> <span class="small">https://github.com/sperling9011-dev/</span></li>
           </ul>
-          <p class="small">
-            
-          </p>
+          <p class="small"></p>
         </div>
       </section>
 
@@ -388,7 +445,6 @@
           </p>
         </div>
       </section>
-
     </div>
   </main>
 
