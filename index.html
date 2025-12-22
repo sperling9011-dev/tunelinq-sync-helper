@@ -1,12 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="tuneLINQ Sync-Helper für Windows – Synchronisiert Musik, Playlists und Ordner mit der tuneLINQ Android-App im lokalen Netzwerk." />
-  <title>tuneLINQ Sync-Helper – Support & Informationen</title>
-
-  <style>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="tuneLINQ Sync-Helper für Windows – Synchronisiert Musik, Playlists und Ordner mit der tuneLINQ Android-App im lokalen Netzwerk.">
+    <title>tuneLINQ Sync-Helper – Support &amp; Informationen</title>
+    <style>
     :root{
       /* Logo-nahe Akzentfarben (aus dem Icon abgeleitet) */
       --accent:  #c0c020; /* gelb-grün */
@@ -286,181 +285,162 @@
       color: var(--muted);
     }
   </style>
-</head>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <div class="topbar">
+          <div class="brand">
+            <div class="logo" aria-hidden="true"> <img src="Square44x44Logo.altform-unplated_targetsize-256.png"
 
-<body>
-  <header>
-    <div class="wrap">
-      <div class="topbar">
-        <div class="brand">
-          <div class="logo" aria-hidden="true">
-            <img src="Square44x44Logo.altform-unplated_targetsize-256.png" alt="tuneLINQ Helper Logo" />
-          </div>
-          <div>
-            <h1>tuneLINQ Sync-Helper (Windows)</h1>
-            <p>Support, Kurzanleitung und rechtliche Hinweise</p>
-          </div>
-        </div>
-
-        <nav aria-label="Navigation">
-          <a class="pill" href="#hilfe">Hilfe</a>
-          <a class="pill" href="#faq">FAQ</a>
-          <a class="pill" href="datenschutz.html">Datenschutzerklärung</a>
-          <a class="pill" href="#kontakt">Kontakt</a>
-        </nav>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <div class="wrap">
-      <section class="hero" aria-label="Einführung">
-        <h2>Synchronisation von Musik, Ordnern und Playlists mit Android – über dein lokales Netzwerk</h2>
-        <p>
-          Der <b>tuneLINQ Sync-Helper</b> ist eine Windows-Anwendung, die deine Musiksammlung aus ausgewählten Ordnern
-          für die tuneLINQ Android-App bereitstellt und Synchronisation/Übertragung im LAN erleichtert.
-        </p>
-
-        <div class="cta">
-          <a class="btn primary" href="#hilfe">Jetzt starten</a>
-          <a class="btn" href="datenschutz.html">Datenschutzerklärung</a>
-        </div>
-
-        <div class="notice" role="note">
-          Hinweis: Für die Synchronisation wird die tuneLINQ Android-App benötigt. Der Helper selbst läuft auf Windows.
-        </div>
-      </section>
-
-      <section id="hilfe" class="grid" aria-label="Hilfe und Kurzanleitung">
-        <div class="card half">
-          <h3>Kurzanleitung (3 Schritte)</h3>
-          <ol>
-            <li>Starte den <b>tuneLINQ Sync-Helper</b> unter Windows.</li>
-            <li>Wähle deine Musikordner aus und starte den Scan (falls angeboten).</li>
-            <li>Öffne tuneLINQ auf Android, starte „Synchronisieren“ und gib den Pairing-Code ein.</li>
-          </ol>
-          <p class="small">
-            Tipp: Stelle sicher, dass PC und Smartphone im selben WLAN/LAN sind.
-          </p>
-        </div>
-
-        <div class="card half">
-          <h3>Netzwerk & Firewall</h3>
-          <ul>
-            <li>PC und Smartphone müssen im selben lokalen Netzwerk sein.</li>
-            <li>Wenn du Probleme hast, erlaube die App in der Windows-Firewall (eingehend/privates Netzwerk).</li>
-            <li>Wenn ein Port angezeigt wird, muss dieser im Netzwerk erreichbar sein (z. B. <code>8787</code>).</li>
-          </ul>
-          <p class="small">
-            Falls du einen VPN-Client nutzt, teste kurz ohne VPN.
-          </p>
-        </div>
-
-        <div class="card third">
-          <h3>Was wird übertragen?</h3>
-          <ul>
-            <li>Musikdateien aus ausgewählten Ordnern</li>
-            <li>Playlists (je nach Format/Quelle)</li>
-            <li>Metadaten (Titel/Album/Interpret)</li>
-          </ul>
-        </div>
-
-        <div class="card third">
-          <h3>Was wird nicht gemacht?</h3>
-          <ul>
-            <li>Keine Cloud-Synchronisation</li>
-            <li>Keine Anmeldung erforderlich</li>
-            <li>Keine Datenweitergabe an Dritte (siehe Datenschutz)</li>
-          </ul>
-        </div>
-
-        <div class="card third">
-          <h3>Datenschutz</h3>
-          <p>
-            Die Datenschutzerklärung findest du hier:
-            <a href="datenschutz.html"><b>datenschutz.html</b></a>
-          </p>
-          <p class="small">
-            Wichtig für Store-Listings: Die Seite ist öffentlich und ohne Login erreichbar.
-          </p>
-        </div>
-      </section>
-
-      <section id="faq" class="grid" aria-label="FAQ">
-        <div class="card">
-          <h3>FAQ</h3>
-
-          <div class="kvs">
-            <div class="kv">
-              <b>Der Helper findet mein Smartphone nicht – was tun?</b>
-              <div class="small">
-                Prüfe, ob beide Geräte im selben WLAN/LAN sind, deaktiviere VPN, und erlaube den Helper in der Windows-Firewall.
-              </div>
-            </div>
-
-            <div class="kv">
-              <b>Welche Ports werden verwendet?</b>
-              <div class="small">
-                Wenn der Helper einen Port anzeigt (z. B. <code>8787</code>), muss dieser im privaten Netzwerk erreichbar sein.
-              </div>
-            </div>
-
-            <div class="kv">
-              <b>Warum dauert der Scan so lange?</b>
-              <div class="small">
-                Große Bibliotheken oder langsame Laufwerke können den Scan verlängern. Teste zunächst mit einem kleineren Ordner.
-              </div>
-            </div>
-
-            <div class="kv">
-              <b>Unterstützt ihr externe Laufwerke/NAS?</b>
-              <div class="small">
-                In der Regel ja, sofern Windows den Pfad lesen kann und die Dateien lokal erreichbar sind. Bei NAS: Netzwerkfreigaben prüfen.
-              </div>
+                alt="tuneLINQ Helper Logo"> </div>
+            <div>
+              <h1>&nbsp;tuneLINQ Sync-Helper (Windows)</h1>
+              <p>&nbsp; Support, Kurzanleitung und rechtliche Hinweise</p>
             </div>
           </div>
-
-          <p class="small" style="margin-top:12px;"></p>
+          <nav aria-label="Navigation"> <a class="pill" href="#hilfe">Download</a>
+            <nav aria-label="Navigation"> <a class="pill" href="#hilfe">Hilfe</a>
+              <a class="pill" href="#faq">FAQ</a> <a class="pill" href="datenschutz.html">Datenschutzerklärung</a>
+              <a class="pill" href="#kontakt">Kontakt</a> </nav>
+          </nav>
         </div>
-      </section>
-
-      <section id="kontakt" class="grid" aria-label="Kontakt">
-        <div class="card">
-          <h3>Kontakt</h3>
-          <ul>
-            <li><b>E-Mail:</b> <span class="small">daniel.spatkowski@outlook.de</span></li>
-            <li><b>GitHub Issues:</b> <span class="small">https://github.com/sperling9011-dev/</span></li>
-          </ul>
-          <p class="small"></p>
-        </div>
-      </section>
-
-      <section id="impressum" class="grid" aria-label="Impressum">
-        <div class="card">
-          <h3>Impressum</h3>
-          <p class="small" style="margin:0;">
-            Daniel Spatkowski<br />
-            Kaiserstr. 15<br />
-            47441 Moers
-          </p>
-        </div>
-      </section>
-    </div>
-  </main>
-
-  <footer>
-    <div class="foot">
-      <div class="small">
-        © <span id="y"></span> tuneLINQ – Sync-Helper
       </div>
-      <div class="small">
-        <a href="#impressum">Impressum</a> · <a href="datenschutz.html">Datenschutzerklärung</a>
+    </header>
+    <main>
+      <div class="wrap">
+        <section class="hero" aria-label="Einführung">
+          <h2>Synchronisation von Musik, Ordnern und Playlists mit Android –
+            über dein lokales Netzwerk</h2>
+          <p> Der <b>tuneLINQ Sync-Helper</b> ist eine Windows-Anwendung, die
+            deine Musiksammlung aus ausgewählten Ordnern für die tuneLINQ
+            Android-App bereitstellt und Synchronisation/Übertragung im LAN
+            erleichtert. </p>
+          <div class="cta"> <a class="btn primary" href="#hilfe">Jetzt
+              starten</a>
+              <script type="module" src="https://get.microsoft.com/badge/ms-store-badge.bundled.js"></script>
+  <style>
+    /* optional: Badge zuverlässig sichtbar machen */
+    ms-store-badge{
+      display:inline-block;
+      line-height:0; /* verhindert „komische“ Inline-Abstände */
+    }
+    /* Größe steuern (die Komponente rendert ein <img> als part) */
+    ms-store-badge::part(img){
+      height: 44px;   /* z.B. passend zu deinen Buttons */
+      width: auto;
+    }
+  </style>
+          <div class="notice" role="note"> Hinweis: Für die Synchronisation wird
+            die tuneLINQ Android-App benötigt. Der Helper selbst läuft auf
+            Windows. </div>
+        </section>
+        <section id="hilfe" class="grid" aria-label="Hilfe und Kurzanleitung">
+          <div class="card half">
+            <h3>Kurzanleitung (3 Schritte)</h3>
+            <ol>
+              <li>Starte den <b>tuneLINQ Sync-Helper</b> unter Windows.</li>
+              <li>Wähle deine Musikordner aus und starte den Scan (falls
+                angeboten).</li>
+              <li>Öffne tuneLINQ auf Android, starte „Synchronisieren“ und gib
+                den Pairing-Code ein.</li>
+            </ol>
+            <p class="small"> Tipp: Stelle sicher, dass PC und Smartphone im
+              selben WLAN/LAN sind. </p>
+          </div>
+          <div class="card half">
+            <h3>Netzwerk &amp; Firewall</h3>
+            <ul>
+              <li>PC und Smartphone müssen im selben lokalen Netzwerk sein.</li>
+              <li>Wenn du Probleme hast, erlaube die App in der Windows-Firewall
+                (eingehend/privates Netzwerk).</li>
+              <li>Wenn ein Port angezeigt wird, muss dieser im Netzwerk
+                erreichbar sein (z. B. <code>8787</code>).</li>
+            </ul>
+            <p class="small"> Falls du einen VPN-Client nutzt, teste kurz ohne
+              VPN. </p>
+          </div>
+          <div class="card third">
+            <h3>Was wird übertragen?</h3>
+            <ul>
+              <li>Musikdateien aus ausgewählten Ordnern</li>
+              <li>Playlists (je nach Format/Quelle)</li>
+              <li>Metadaten (Titel/Album/Interpret)</li>
+            </ul>
+          </div>
+          <div class="card third">
+            <h3>Was wird nicht gemacht?</h3>
+            <ul>
+              <li>Keine Cloud-Synchronisation</li>
+              <li>Keine Anmeldung erforderlich</li>
+              <li>Keine Datenweitergabe an Dritte (siehe Datenschutz)</li>
+            </ul>
+          </div>
+          <div class="card third">
+            <h3>Datenschutz</h3>
+            <p> Die Datenschutzerklärung findest du hier: <a href="datenschutz.html"><b>datenschutz.html</b></a>
+            </p>
+            <p class="small"> Wichtig für Store-Listings: Die Seite ist
+              öffentlich und ohne Login erreichbar. </p>
+          </div>
+        </section>
+        <section id="faq" class="grid" aria-label="FAQ">
+          <div class="card">
+            <h3>FAQ</h3>
+            <div class="kvs">
+              <div class="kv"> <b>Der Helper findet mein Smartphone nicht – was
+                  tun?</b>
+                <div class="small"> Prüfe, ob beide Geräte im selben WLAN/LAN
+                  sind, deaktiviere VPN, und erlaube den Helper in der
+                  Windows-Firewall. </div>
+              </div>
+              <div class="kv"> <b>Welche Ports werden verwendet?</b>
+                <div class="small"> Wenn der Helper einen Port anzeigt (z. B. <code>8787</code>),
+                  muss dieser im privaten Netzwerk erreichbar sein. </div>
+              </div>
+              <div class="kv"> <b>Warum dauert der Scan so lange?</b>
+                <div class="small"> Große Bibliotheken oder langsame Laufwerke
+                  können den Scan verlängern. Teste zunächst mit einem kleineren
+                  Ordner. </div>
+              </div>
+              <div class="kv"> <b>Unterstützt ihr externe Laufwerke/NAS?</b>
+                <div class="small"> In der Regel ja, sofern Windows den Pfad
+                  lesen kann und die Dateien lokal erreichbar sind. Bei NAS:
+                  Netzwerkfreigaben prüfen. </div>
+              </div>
+            </div>
+            <p class="small" style="margin-top:12px;"></p>
+          </div>
+        </section>
+        <section id="kontakt" class="grid" aria-label="Kontakt">
+          <div class="card">
+            <h3>Kontakt</h3>
+            <ul>
+              <li><b>E-Mail:</b> <span class="small">daniel.spatkowski@outlook.de</span></li>
+              <li><b>GitHub Issues:</b> <span class="small">https://github.com/sperling9011-dev/</span></li>
+            </ul>
+            <p class="small"></p>
+          </div>
+        </section>
+        <section id="impressum" class="grid" aria-label="Impressum">
+          <div class="card">
+            <h3>Impressum</h3>
+            <p class="small" style="margin:0;"> Daniel Spatkowski<br>
+              Kaiserstr. 15<br>
+              47441 Moers </p>
+          </div>
+        </section>
       </div>
-    </div>
-  </footer>
-
-  <script>
+    </main>
+    <footer>
+      <div class="foot">
+        <div class="small"> © <span id="y"></span> tuneLINQ – Sync-Helper </div>
+        <div class="small"> <a href="#impressum">Impressum</a> · <a href="datenschutz.html">Datenschutzerklärung</a>
+        </div>
+      </div>
+    </footer>
+    <script>
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
-</body>
+  </body>
 </html>
