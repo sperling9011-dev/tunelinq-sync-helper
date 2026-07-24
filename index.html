@@ -1,5 +1,20 @@
-<!doctype html><html lang='de'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<!doctype html><html lang='de'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,user-scalable=no'>
 <title>Longfill Rechner</title>
+
+<!-- PWA & Mobile Optimization -->
+<meta name="theme-color" content="#eef4fb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Longfill">
+<meta name="mobile-web-app-capable" content="yes">
+
+<!-- Web-App Manifest (Data URI) -->
+<link rel="manifest" href='data:application/manifest+json,{"name":"Longfill Rechner","short_name":"Longfill","start_url":".","display":"standalone","background_color":"#eef4fb","theme_color":"#eef4fb","icons":[{"src":"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.88em%22 font-size=%2290%22>🧪</text></svg>","sizes":"512x512","type":"image/svg+xml"}]}'>
+
+<!-- App Icon (SVG Data URI) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.88em' font-size='90'>🧪</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.88em' font-size='90'>🧪</text></svg>">
+
 <style>
 :root{
     --bg:#eef4fb;
@@ -26,32 +41,36 @@ body.dark{
     /* Ergebnisfelder */
     --res:#2b3443;
 }
-body{margin:0;background:var(--bg);color:var(--text);font:16px system-ui}
-.wrap{max-width:760px;margin:auto;padding:18px}
-.card{background:var(--card);border-radius:14px;padding:16px;box-shadow:0 3px 10px #0002;margin-top:16px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px system-ui;-webkit-tap-highlight-color:transparent;user-select:none;overflow-x:hidden}
+.wrap{max-width:760px;margin:auto;padding:12px;width:100%}
+.card{background:var(--card);border-radius:14px;padding:16px;box-shadow:0 3px 10px #0002;margin-top:16px;width:100%}
 h2{margin:0 0 12px}
 h3{margin:0 0 12px;font-size:1.1em}
 h4{margin:16px 0 8px;font-size:0.95em}
-.row{display:grid;grid-template-columns:220px 1fr;gap:10px;align-items:center;margin:8px 0}
-input,select{padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--text)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
-.box{padding:12px;border-radius:10px}.b1{background:var(--b1)}.b2{background:var(--b2)}
-.res{background:var(--res);padding:10px;border-radius:8px;margin-top:8px}
-.err{color:#d33;min-height:1.2em}
+.row{display:grid;grid-template-columns:180px 1fr;gap:10px;align-items:center;margin:8px 0}
+input,select{padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--text);font-size:16px;width:100%}
+.grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:12px;margin-top:12px;width:100%}
+.box{padding:12px;border-radius:10px;width:100%}.b1{background:var(--b1)}.b2{background:var(--b2)}
+.res{background:var(--res);padding:10px;border-radius:8px;margin-top:8px;word-break:break-word}
+.err{color:#d33;min-height:1.2em;margin-top:8px}
 button{padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer}
 table{width:100%;border-collapse:collapse;margin-top:6px}
 th,td{border:1px solid var(--line);padding:8px;text-align:center;font-size:0.9em}
 th{background:var(--res)}
-@media(max-width:600px){.row{grid-template-columns:1fr}}
+@media(max-width:500px){
+    .row{grid-template-columns:1fr}
+    .wrap{padding:8px}
+}
 </style></head><body><div class=wrap>
-<div style="display:flex;justify-content:space-between;align-items:center"><h2>🧪 Longfill-Rechner</h2><button onclick="document.body.classList.toggle('dark')">🌙</button></div>
+<div style="display:flex;justify-content:space-between;align-items:center"><h2>🧪 Longfill-Rechner</h2><button onclick="toggleDark()">🌙</button></div>
 <div class=card>
 <div class=row><label><b>Gebindegröße</b></label><select id=v><option>60 ml</option><option>100 ml</option><option selected>120 ml</option></select></div>
-<div class=row><label><b>Aromainhalt (ml)</b></label><input id=a></div>
-<div class=row><label><b>Soll-Nikotin (mg/ml)</b></label><input id=s></div>
+<div class=row><label><b>Aromainhalt (ml)</b></label><input id=a type="number" inputmode="decimal"></div>
+<div class=row><label><b>Soll-Nikotin (mg/ml)</b></label><input id=s type="number" inputmode="decimal"></div>
 <div class=grid>
-<div class="box b1"><b>Base 1</b><div class=row><label>mg/ml</label><input id=n1 value="100"></div><div id=o1 class=res>—</div></div>
-<div class="box b2"><b>Base 2</b><div class=row><label>mg/ml</label><input id=n2 value="0"></div><div id=o2 class=res>—</div></div>
+<div class="box b1"><b>Base 1</b><div class=row><label>mg/ml</label><input id=n1 value="100" type="number" inputmode="decimal"></div><div id=o1 class=res>—</div></div>
+<div class="box b2"><b>Base 2</b><div class=row><label>mg/ml</label><input id=n2 value="0" type="number" inputmode="decimal"></div><div id=o2 class=res>—</div></div>
 </div><div id=e class=err></div></div>
 
 <div class=card>
@@ -75,5 +94,43 @@ if(b1<0||b2<0){e.textContent="Mit diesen Werten ist keine gültige Mischung mög
 o1.textContent=`${b1.toFixed(2)} ml`;
 o2.textContent=`${b2.toFixed(2)} ml`;
 }
+function toggleDark(){
+document.body.classList.toggle('dark');
+let isDark = document.body.classList.contains('dark');
+document.querySelector('meta[name="theme-color"]').setAttribute('content', isDark ? '#121821' : '#eef4fb');
+}
 document.querySelectorAll("input,select").forEach(x=>x.oninput=calc);calc();
-</script></body></html>-
+
+// Service Worker für Offline-Verfügbarkeit & Cache-Updates
+if ('serviceWorker' in navigator) {
+  const swCode = `
+    const CACHE_NAME = 'longfill-v2';
+    self.addEventListener('install', e => {
+      e.waitUntil(
+        caches.open(CACHE_NAME).then(cache => cache.add(location.href))
+      );
+      self.skipWaiting();
+    });
+    self.addEventListener('activate', e => {
+      e.waitUntil(
+        caches.keys().then(keys => Promise.all(
+          keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
+        )).then(() => self.clients.claim())
+      );
+    });
+    self.addEventListener('fetch', e => {
+      e.respondWith(
+        fetch(e.request)
+          .then(res => {
+            const resClone = res.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(e.request, resClone));
+            return res;
+          })
+          .catch(() => caches.match(e.request))
+      );
+    });
+  `;
+  const blob = new Blob([swCode], { type: 'application/javascript' });
+  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+}
+</script></body></html>
