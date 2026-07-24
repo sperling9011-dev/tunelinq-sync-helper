@@ -1,136 +1,448 @@
-<!doctype html><html lang='de'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,user-scalable=no'>
-<title>Longfill Rechner</title>
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="tuneLINQ Sync-Helper für Windows – Synchronisiert Musik, Playlists und Ordner mit der tuneLINQ Android-App im lokalen Netzwerk.">
+    <title>tuneLINQ Sync-Helper – Support &amp; Informationen</title>
+    <!-- Microsoft Store Badge Web Component -->
+    <script type="module" src="https://get.microsoft.com/badge/ms-store-badge.bundled.js"></script>
+    <style>
+    :root{
+      /* Logo-nahe Akzentfarben (aus dem Icon abgeleitet) */
+      --accent:  #c0c020; /* gelb-grün */
+      --accent2: #70b040; /* grün */
 
-<!-- PWA & Mobile Optimization -->
-<meta name="theme-color" content="#eef4fb">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Longfill">
-<meta name="mobile-web-app-capable" content="yes">
+      /* Dark */
+      --bg:    #08100a;
+      --card:  #0e1811;
+      --text:  #eaf4ea;
+      --muted: #a8bca8;
+      --line:  #203525;
 
-<!-- Web-App Manifest (Data URI) -->
-<link rel="manifest" href='data:application/manifest+json,{"name":"Longfill Rechner","short_name":"Longfill","start_url":".","display":"standalone","background_color":"#eef4fb","theme_color":"#eef4fb","icons":[{"src":"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.88em%22 font-size=%2290%22>🧪</text></svg>","sizes":"512x512","type":"image/svg+xml"}]}'>
+      --warn:  #ffcc66;
+      --ok:    #7ee787;
 
-<!-- App Icon (SVG Data URI) -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.88em' font-size='90'>🧪</text></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.88em' font-size='90'>🧪</text></svg>">
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --max: 980px;
 
-<style>
-:root{
-    --bg:#eef4fb;
-    --card:#ffffff;
-    --text:#222222;
-    --line:#d5dbe5;
+      --logoSize: 44px;
+      --logoRadius: 12px;
+    }
 
-    --b2:#d9ecff;
-    --b1:#dff7df;
+    @media (prefers-color-scheme: light){
+      :root{
+        /* Light (Akzente bleiben logo-nah, UI-Farben heller) */
+        --bg:    #f6fbf2;
+        --card:  #ffffff;
+        --text:  #0f172a;
+        --muted: #4b5563;
+        --line:  #dbe7d6;
 
-    --res:#f7f7f7;
-}
+        /* Für Links im Light-Mode etwas dunkler für Kontrast */
+        --accent:  #2f7a22;
+        --accent2: #7cab2f;
 
-body.dark{
-    --bg:#121821;
-    --card:#1d2633;
-    --text:#eef2f7;
-    --line:#3d4b61;
+        --shadow: 0 10px 30px rgba(0,0,0,.08);
+      }
+    }
 
-    /* Base-Karten */
-    --b2:#223850;
-    --b1:#233d2b;
+    *{ box-sizing: border-box; }
 
-    /* Ergebnisfelder */
-    --res:#2b3443;
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:16px system-ui;-webkit-tap-highlight-color:transparent;user-select:none;overflow-x:hidden}
-.wrap{max-width:760px;margin:auto;padding:12px;width:100%}
-.card{background:var(--card);border-radius:14px;padding:16px;box-shadow:0 3px 10px #0002;margin-top:16px;width:100%}
-h2{margin:0 0 12px}
-h3{margin:0 0 12px;font-size:1.1em}
-h4{margin:16px 0 8px;font-size:0.95em}
-.row{display:grid;grid-template-columns:180px 1fr;gap:10px;align-items:center;margin:8px 0}
-input,select{padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--text);font-size:16px;width:100%}
-.grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:12px;margin-top:12px;width:100%}
-.box{padding:12px;border-radius:10px;width:100%}.b1{background:var(--b1)}.b2{background:var(--b2)}
-.res{background:var(--res);padding:10px;border-radius:8px;margin-top:8px;word-break:break-word}
-.err{color:#d33;min-height:1.2em;margin-top:8px}
-button{padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer}
-table{width:100%;border-collapse:collapse;margin-top:6px}
-th,td{border:1px solid var(--line);padding:8px;text-align:center;font-size:0.9em}
-th{background:var(--res)}
-@media(max-width:500px){
-    .row{grid-template-columns:1fr}
-    .wrap{padding:8px}
-}
-</style></head><body><div class=wrap>
-<div style="display:flex;justify-content:space-between;align-items:center"><h2>🧪 Longfill-Rechner</h2><button onclick="toggleDark()">🌙</button></div>
-<div class=card>
-<div class=row><label><b>Gebindegröße</b></label><select id=v><option>60 ml</option><option>100 ml</option><option selected>120 ml</option></select></div>
-<div class=row><label><b>Aromainhalt (ml)</b></label><input id=a type="number" inputmode="decimal"></div>
-<div class=row><label><b>Soll-Nikotin (mg/ml)</b></label><input id=s type="number" inputmode="decimal"></div>
-<div class=grid>
-<div class="box b1"><b>Base 1</b><div class=row><label>mg/ml</label><input id=n1 value="100" type="number" inputmode="decimal"></div><div id=o1 class=res>—</div></div>
-<div class="box b2"><b>Base 2</b><div class=row><label>mg/ml</label><input id=n2 value="0" type="number" inputmode="decimal"></div><div id=o2 class=res>—</div></div>
-</div><div id=e class=err></div></div>
+    body{
+      margin:0;
+      font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 18% -10%, rgba(112,176,64,.22), transparent 60%),
+        radial-gradient(900px 500px at 92% 0%, rgba(192,192,32,.18), transparent 55%),
+        radial-gradient(700px 420px at 50% 120%, rgba(112,176,64,.10), transparent 55%),
+        var(--bg);
+    }
 
-<div class=card>
-<h3>Richtwerte bei 10 ml Aroma</h3>
-<h4>20 mg/ml Endprodukt mit 100 mg-Base und VPG</h4>
-<table><tr><th>Flaschengröße (ml)</th><th>100 mg Base (ml)</th></tr><tr><td>60</td><td>12</td></tr><tr><td>100</td><td>20</td></tr><tr><td>120</td><td>24</td></tr></table>
-<h4>20-21 mg/ml Endprodukt mit 20 mg-Base und 100 mg-Base</h4>
-<table><tr><th>Flaschengröße (ml)</th><th>20 mg Base (ml)</th><th>100 mg Base (ml)</th></tr><tr><td>60</td><td>47</td><td>3</td></tr><tr><td>100</td><td>87</td><td>3</td></tr><tr><td>120</td><td>106</td><td>4</td></tr></table>
-</div>
-</div>
-<script>
-function g(i){return parseFloat(document.getElementById(i).value.replace(",", "."))}
-function calc(){
-e.textContent="";
-let V=g("v"),A=g("a"),S=g("s"),N1=g("n1"),N2=g("n2");
-if([A,S,N1,N2].some(isNaN)){o1.textContent="Bitte Werte eingeben";o2.textContent="";return;}
-if(A>V){e.textContent="Aroma darf nicht größer als Gebinde sein.";return;}
-if(N1===N2){e.textContent="Base 1 und Base 2 dürfen nicht gleich sein.";return;}
-let b1=(V*S-(V-A)*N2)/(N1-N2),b2=(V-A)-b1;
-if(b1<0||b2<0){e.textContent="Mit diesen Werten ist keine gültige Mischung möglich.";return;}
-o1.textContent=`${b1.toFixed(2)} ml`;
-o2.textContent=`${b2.toFixed(2)} ml`;
-}
-function toggleDark(){
-document.body.classList.toggle('dark');
-let isDark = document.body.classList.contains('dark');
-document.querySelector('meta[name="theme-color"]').setAttribute('content', isDark ? '#121821' : '#eef4fb');
-}
-document.querySelectorAll("input,select").forEach(x=>x.oninput=calc);calc();
+    a{ color:var(--accent); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
 
-// Service Worker für Offline-Verfügbarkeit & Cache-Updates
-if ('serviceWorker' in navigator) {
-  const swCode = `
-    const CACHE_NAME = 'longfill-v2';
-    self.addEventListener('install', e => {
-      e.waitUntil(
-        caches.open(CACHE_NAME).then(cache => cache.add(location.href))
-      );
-      self.skipWaiting();
-    });
-    self.addEventListener('activate', e => {
-      e.waitUntil(
-        caches.keys().then(keys => Promise.all(
-          keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
-        )).then(() => self.clients.claim())
-      );
-    });
-    self.addEventListener('fetch', e => {
-      e.respondWith(
-        fetch(e.request)
-          .then(res => {
-            const resClone = res.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put(e.request, resClone));
-            return res;
-          })
-          .catch(() => caches.match(e.request))
-      );
-    });
-  `;
-  const blob = new Blob([swCode], { type: 'application/javascript' });
-  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
-}
-</script></body></html>
+    header{ padding: 32px 16px 12px; }
+
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 260px;
+    }
+
+    /* Logo-Einbindung */
+    .logo{
+      width: var(--logoSize);
+      height: var(--logoSize);
+      border-radius: var(--logoRadius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      flex: 0 0 auto;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    @media (prefers-color-scheme: light){
+      .logo{
+        background: rgba(0,0,0,.03);
+        border-color: rgba(0,0,0,.06);
+      }
+    }
+    .logo img{
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .brand h1{
+      margin:0;
+      font-size: 20px;
+      letter-spacing: .2px;
+    }
+    .brand p{
+      margin:2px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    nav{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.02);
+    }
+    @media (prefers-color-scheme: light){
+      .pill{ background: rgba(0,0,0,.02); }
+    }
+
+    main{ padding: 8px 16px 36px; }
+
+    .hero{
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0)),
+        radial-gradient(900px 260px at 15% 0%, rgba(112,176,64,.10), transparent 60%),
+        radial-gradient(700px 240px at 95% 0%, rgba(192,192,32,.10), transparent 60%);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      margin-bottom: 16px;
+    }
+    .hero h2{
+      margin: 0 0 8px;
+      font-size: 26px;
+      line-height: 1.2;
+    }
+    .hero p{
+      margin: 0 0 16px;
+      color: var(--muted);
+      max-width: 70ch;
+    }
+
+    .cta{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      align-items: center; /* optisch sauber */
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      color: var(--text);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    @media (prefers-color-scheme: light){
+      .btn{ background: rgba(0,0,0,.02); }
+    }
+    .btn.primary{
+      border: 0;
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      color: #07110a;
+      box-shadow: 0 10px 24px rgba(112,176,64,.18);
+    }
+    @media (prefers-color-scheme: light){
+      .btn.primary{
+        color: #061008;
+        box-shadow: 0 10px 22px rgba(47,122,34,.14);
+      }
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .card{
+      grid-column: span 12;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    @media (min-width: 860px){
+      .card.half{ grid-column: span 6; }
+      .card.third{ grid-column: span 4; }
+    }
+
+    .card h3{
+      margin:0 0 10px;
+      font-size: 18px;
+    }
+    .card p, .card li{ color: var(--muted); }
+
+    ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: 0.95em;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--line);
+      padding: 2px 6px;
+      border-radius: 8px;
+      color: var(--text);
+    }
+    @media (prefers-color-scheme: light){
+      code{
+        background: rgba(0,0,0,.04);
+        color: #111827;
+      }
+    }
+
+    .notice{
+      border-left: 4px solid var(--warn);
+      background: rgba(255,204,102,.08);
+      padding: 10px 12px;
+      border-radius: 12px;
+      margin-top: 10px;
+      color: var(--text);
+    }
+
+    .kvs{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (min-width: 860px){
+      .kvs{ grid-template-columns: 1fr 1fr; }
+    }
+    .kv{
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .kv b{ display:block; margin-bottom: 4px; }
+
+    footer{
+      padding: 18px 16px 30px;
+      color: var(--muted);
+    }
+    .foot{
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .small{
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* Microsoft Store Badge: sichtbar/layout-stabil + Größe */
+    ms-store-badge{
+      display:inline-block;
+      line-height:0;
+    }
+    ms-store-badge::part(img){
+      height: 44px;
+      width: auto;
+    }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <div class="topbar">
+          <div class="brand">
+            <div class="logo" aria-hidden="true"> <img src="Square44x44Logo.altform-unplated_targetsize-256.png"
+
+                alt="tuneLINQ Helper Logo"> </div>
+            <div>
+              <h1>&nbsp;tuneLINQ Sync-Helper (Windows)</h1>
+              <p>&nbsp; Support, Kurzanleitung und rechtliche Hinweise</p>
+            </div>
+          </div>
+        
+            <nav aria-label="Navigation"> <a class="pill" href="#hilfe">Hilfe</a>
+              <a class="pill" href="#faq">FAQ</a> <a class="pill" href="datenschutz.html">Datenschutzerklärung</a>
+              <a class="pill" href="#kontakt">Kontakt</a> </nav>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="wrap">
+        <section class="hero" aria-label="Einführung">
+          <h2>Synchronisation von Musik, Ordnern und Playlists mit Android –
+            über dein lokales Netzwerk</h2>
+          <p> Der <b>tuneLINQ Sync-Helper</b> ist eine Windows-Anwendung, die
+            deine Musiksammlung aus ausgewählten Ordnern für die tuneLINQ
+            Android-App bereitstellt und Synchronisation/Übertragung im LAN
+            erleichtert. </p>
+          <div class="cta"> <a class="btn primary" href="#hilfe">Jetzt starten</a>
+            <!-- Store Badge: HIER ist der Button --> <ms-store-badge productid="9P6H0KL58571"
+
+              theme="dark" window-mode="full" language="de"> </ms-store-badge>
+            <div class="notice" role="note"> Hinweis: Für die Synchronisation
+              wird die tuneLINQ Android-App benötigt. Der Helper selbst läuft
+              auf Windows. </div>
+          </div>
+        </section>
+        <section id="hilfe" class="grid" aria-label="Hilfe und Kurzanleitung">
+          <div class="card half">
+            <h3>Kurzanleitung (3 Schritte)</h3>
+            <ol>
+              <li>Starte den <b>tuneLINQ Sync-Helper</b> unter Windows.</li>
+              <li>Wähle deine Musikordner aus und starte den Scan (falls
+                angeboten).</li>
+              <li>Öffne tuneLINQ auf Android, starte „Synchronisieren“ und gib
+                den Pairing-Code ein.</li>
+            </ol>
+            <p class="small">Tipp: Stelle sicher, dass PC und Smartphone im
+              selben WLAN/LAN sind.</p>
+          </div>
+          <div class="card half">
+            <h3>Netzwerk &amp; Firewall</h3>
+            <ul>
+              <li>PC und Smartphone müssen im selben lokalen Netzwerk sein.</li>
+              <li>Wenn du Probleme hast, erlaube die App in der Windows-Firewall
+                (eingehend/privates Netzwerk).</li>
+              <li>Wenn ein Port angezeigt wird, muss dieser im Netzwerk
+                erreichbar sein (z. B. <code>8787</code>).</li>
+            </ul>
+            <p class="small">Falls du einen VPN-Client nutzt, teste kurz ohne
+              VPN.</p>
+          </div>
+          <div class="card third">
+            <h3>Was wird übertragen?</h3>
+            <ul>
+              <li>Musikdateien aus ausgewählten Ordnern</li>
+              <li>Playlists (je nach Format/Quelle)</li>
+              <li>Metadaten (Titel/Album/Interpret)</li>
+            </ul>
+          </div>
+          <div class="card third">
+            <h3>Was wird nicht gemacht?</h3>
+            <ul>
+              <li>Keine Cloud-Synchronisation</li>
+              <li>Keine Anmeldung erforderlich</li>
+              <li>Keine Datenweitergabe an Dritte (siehe Datenschutz)</li>
+            </ul>
+          </div>
+          <div class="card third">
+            <h3>Datenschutz</h3>
+            <p>Die Datenschutzerklärung findest du hier: <a href="datenschutz.html"><b>datenschutz.html</b></a></p>
+            <p class="small">Wichtig für Store-Listings: Die Seite ist
+              öffentlich und ohne Login erreichbar.</p>
+          </div>
+        </section>
+        <section id="faq" class="grid" aria-label="FAQ">
+          <div class="card">
+            <h3>FAQ</h3>
+            <div class="kvs">
+              <div class="kv"> <b>Der Helper findet mein Smartphone nicht – was
+                  tun?</b>
+                <div class="small">Prüfe, ob beide Geräte im selben WLAN/LAN
+                  sind, deaktiviere VPN, und erlaube den Helper in der
+                  Windows-Firewall.</div>
+              </div>
+              <div class="kv"> <b>Welche Ports werden verwendet?</b>
+                <div class="small">Wenn der Helper einen Port anzeigt (z. B. <code>8787</code>),
+                  muss dieser im privaten Netzwerk erreichbar sein.</div>
+              </div>
+              <div class="kv"> <b>Warum dauert der Scan so lange?</b>
+                <div class="small">Große Bibliotheken oder langsame Laufwerke
+                  können den Scan verlängern. Teste zunächst mit einem kleineren
+                  Ordner.</div>
+              </div>
+              <div class="kv"> <b>Unterstützt ihr externe Laufwerke/NAS?</b>
+                <div class="small">In der Regel ja, sofern Windows den Pfad
+                  lesen kann und die Dateien lokal erreichbar sind. Bei NAS:
+                  Netzwerkfreigaben prüfen.</div>
+              </div>
+            </div>
+            <p class="small" style="margin-top:12px;"></p>
+          </div>
+        </section>
+        <section id="kontakt" class="grid" aria-label="Kontakt">
+          <div class="card">
+            <h3>Kontakt</h3>
+            <ul>
+              <li><b>E-Mail:</b> <span class="small">daniel.spatkowski@outlook.de</span></li>
+              <li><b>GitHub Issues:</b> <span class="small">https://github.com/sperling9011-dev/</span></li>
+            </ul>
+            <p class="small"></p>
+          </div>
+        </section>
+        <section id="impressum" class="grid" aria-label="Impressum">
+          <div class="card">
+            <h3>Impressum</h3>
+            <p class="small" style="margin:0;"> Daniel Spatkowski<br>
+              Kaiserstr. 15<br>
+              47441 Moers </p>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer>
+      <div class="foot">
+        <div class="small">© <span id="y"></span> tuneLINQ – Sync-Helper</div>
+        <div class="small"> <a href="#impressum">Impressum</a> · <a href="datenschutz.html">Datenschutzerklärung</a>
+        </div>
+      </div>
+    </footer>
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
